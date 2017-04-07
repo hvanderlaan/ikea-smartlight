@@ -10,6 +10,8 @@ cd bin
 ./build.sh
 ```
 
+the framework also requires `tqdm` for showing progressbars, you could strip it from the sourcecode or install the module for python: `pip install pip --upgrade && pip install tqdm`.
+
 ## todo
 - [ ] add change state (power on/off lightbulb)
 - [ ] add dimmer value (dimm lightbulb)
