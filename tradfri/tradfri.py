@@ -61,9 +61,9 @@ def get_tradfri_groups(hubip, securityid):
 
     return json.loads(result.read().strip('\n'))
 
-def get_tradfri_group_status(hupip, securityid, groupid):
+def get_tradfri_group_status(hubip, securityid, groupid):
     """ function for getting tradfri group information """
-    hub = 'coaps://{}:5684/15004/{}' .format(hupip, groupid)
+    hub = 'coaps://{}:5684/15004/{}' .format(hubip, groupid)
     apicall = 'bin/coap-client -m get -u "Client_identity" -k "{}" "{}" | awk \'NR==4\'' .format(securityid, hub)
 
     if os.path.exists('bin/coap-client'):
