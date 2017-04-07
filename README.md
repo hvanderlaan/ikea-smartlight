@@ -1,7 +1,7 @@
 # ikea-smartlight
 python framework for controlling the Ikea smart lights (tradfri)
 
-## requirements
+### requirements
 at this moment there is no coap libs with dTLS, the ikea smart lights are using dTLS with coap for security. the only option is to build a new libcoap with dTLS included. libcoap requires `cunit, a2x, doxygen and dot` you need to install these requirements first.
 
 when this is installed run the build script for compiling libcoap
@@ -12,7 +12,29 @@ cd bin
 
 the framework also requires `tqdm` for showing progressbars, you could strip it from the sourcecode or install the module for python: `pip install pip --upgrade && pip install tqdm`.
 
-## todo
+### output
+```
+./get-tradfri-status.py
+[ ] smartlight: receiving tradfri lightbulbs information
+getting lightbulbs: 100%|████████████████████████████████████████████████████████| 7/7 [00:00<00:00,  9.52 lightbulbs/s]
+getting groups: 100%|████████████████████████████████████████████████████████████████| 4/4 [00:00<00:00, 10.62 groups/s]
+[+] smartlight: done getting tradfri lightbulbs information
+===========================================================
+
+bulbid: 1, name: lamp tv, state: off
+bulbid: 2, name: lamp bank, state: off
+bulbid: 3, name: lamp kastje, state: off
+bulbid: 4, name: lamp hal boven, state: off
+bulbid: 5, name: lamp slaapkamer, state: off
+bulbid: 6, name: lamp hal beneden, state: off
+
+groupid: 0, name: hal beneden, state off
+groupid: 1, name: slaapkamer, state on
+groupid: 2, name: woonkamer, state off
+groupid: 3, name: hal boven, state on
+```
+
+### todo
 - [ ] add change state (power on/off lightbulb)
 - [ ] add dimmer value (dimm lightbulb)
 - [ ] add change state group (power on/off groups)
