@@ -11,5 +11,5 @@ cd ../../
 ./autogen.sh
 ./configure --disable-shared --enable-tests
 make
-cp -r libcoap/examples/.lib .
+cp -r libcoap/examples/.libs .
 cp libcoap/examples/coap-client
