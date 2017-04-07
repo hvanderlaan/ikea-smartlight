@@ -22,7 +22,7 @@ the framework also requires `tqdm` for showing progressbars, you could strip it 
 # turn on tradfri lightbulb
 ./coap-client -m put -u "Client_identity" -k "<key>" -e '{ "3311" : [{ "5850" : 1 ]} }' "coaps://<hup>:5684/15001/65537"
 # turn off tradfri lightbulb
-./coap-client -m put -u "Client_identity" -k "<key>" -e '{ "3311" : [{ "5850" : 1 ]} }' "coaps://<hup>:5684/15001/65537"
+./coap-client -m put -u "Client_identity" -k "<key>" -e '{ "3311" : [{ "5850" : 0 ]} }' "coaps://<hup>:5684/15001/65537"
 ```
 
 ### output
