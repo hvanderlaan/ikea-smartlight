@@ -12,6 +12,19 @@ cd bin
 
 the framework also requires `tqdm` for showing progressbars, you could strip it from the sourcecode or install the module for python: `pip install pip --upgrade && pip install tqdm`.
 
+### libcoap usage
+```bash
+# getting tradfri information
+./coap-client -m get -u "Client_identity" -k "<key>" "coaps://<hup>:5684/15001"
+# getting tradfri lightbulb status
+./coap-client -m get -u "Client_identity" -k "<key>" "coaps://<hup>:5684/15001/65537"
+
+# turn on tradfri lightbulb
+./coap-client -m put -u "Client_identity" -k "<key>" -e '{ "3311" : [{ "5850" : 1 ]} }' "coaps://<hup>:5684/15001/65537"
+# turn off tradfri lightbulb
+./coap-client -m put -u "Client_identity" -k "<key>" -e '{ "3311" : [{ "5850" : 1 ]} }' "coaps://<hup>:5684/15001/65537"
+```
+
 ### output
 ```
 ./get-tradfri-status.py
