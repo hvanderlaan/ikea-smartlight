@@ -1,5 +1,5 @@
 # ikea-smartlight
-python framework for controlling the Ikea smart lights (tardfri)
+python framework for controlling the Ikea smart lights (tradfri)
 
 ## requirements
 at this moment there is no coap libs with dTLS, the ikea smart lights are using dTLS with coap for security. the only option is to build a new libcoap with dTLS included. libcoap requires `cunit, a2x, doxygen and dot` you need to install these requirements first.
