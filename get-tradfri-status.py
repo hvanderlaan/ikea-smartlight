@@ -4,13 +4,15 @@
 # purpose     : control ikea tradfri smart light
 #
 # author      : harald van der laan
-# date        : 2017/04/06
-# version     : v1.0.0
+# date        : 2017/04/07
+# version     : v1.0.1
 #
 # requirements:
 # - libcoap
+# - tqdm
 #
 # changelog   :
+# - v1.0.1      added progressbar and sleep between lightbulbs/groups   (harald)
 # - v1.0.0      initial release                                         (harald)
 
 """ smartlight - python framework for the tradfri ikea smart light hub
@@ -22,9 +24,11 @@
 from __future__ import print_function
 
 import sys
+import time
 import ConfigParser
 
 from tradfri import tradfri
+from tqdm import tqdm
 
 def main():
     """ main function """
@@ -39,10 +43,13 @@ def main():
     devices = tradfri.get_tradfri_devices(hubip, securityid)
     groups = tradfri.get_tradfri_groups(hubip, securityid)
 
-    for deviceid in range(len(devices)):
+    for deviceid in tqdm(range(len(devices)), desc='getting lightbulbs', unit=' lightbulbs'):
         lightbulb.append(tradfri.get_tradfri_lightbulb(hubip, securityid, str(devices[deviceid])))
 
-    for groupid in range(len(groups)):
+    # getting the groups will somethimes fail, to slow down the process we added a sleep
+    time.sleep(.5)
+
+    for groupid in tqdm(range(len(groups)), desc='getting groups', unit=' groups'):
         lightgroup.append(tradfri.get_tradfri_group_status(hubip, securityid, str(groups[groupid])))
 
     print('[+] smartlight: done getting tradfri lightbulbs information')
