@@ -24,30 +24,31 @@ import os
 def tradfri_power_light(hubip, securityid, lightbulbid, value):
     """ function for power on/off tradfri lightbulb """
     coap = 'bin/coap-client'
-    tradfriHub = 'coaps://{}:5694/15001/{}' .format(hubip, lightbulbid)
+    tradfriHub = 'coaps://{}:5684/15001/{}' .format(hubip, lightbulbid)
 
     if value == 'on':
-        payload = '{ "3311" : [{ "5850" : 1 }] }'
+        payload = '{ "3311": [{ "5850": 1 }] }'
     else:
-        payload = '{ "3311" : [{ "5850" : 0 }] }'
+        payload = '{ "3311": [{ "5850": 0 }] }'
 
     api = '{} -m put -u "Client_identity" -k "{}" -e \'{}\' "{}"' .format(coap, securityid,
                                                                           payload, tradfriHub)
 
     if os.path.exists(coap):
-        result = os.popen(api)
+        os.popen(api)
     else:
         sys.stderr/write('[-] libcoap: could not find libcoap\n')
         sys.exit(1)
 
-    return result
+    return True
 
 
 def tradfri_dim_light(hubip, securityid, lightbulbid, value):
     """ function for dimming tradfri lightbulb """
     coap = 'bin/coap-client'
-    tradfriHub = 'coaps://{}:5694/15001/{}'.format(hubip, lightbulbid)
-    payload = '{ "3311" : [{ "5851" : %s }] }' % int(value * 2.55)
+    dim = float(value) * 2.55
+    tradfriHub = 'coaps://{}:5684/15001/{}'.format(hubip, lightbulbid)
+    payload = '{ "3311" : [{ "5851" : %s }] }' % int(dim)
 
     api = '{} -m put -u "Client_identity" -k "{}" -e \'{}\' "{}"'.format(coap, securityid,
                                                                          payload, tradfriHub)
@@ -63,14 +64,14 @@ def tradfri_dim_light(hubip, securityid, lightbulbid, value):
 def tradfri_color_light(hubip, securityid, lightbulbid, value):
     """ function for color temperature tradfri lightbulb """
     coap = 'bin/coap-client'
-    tradfriHub = 'coaps://{}:5694/15001/{}'.format(hubip, lightbulbid)
+    tradfriHub = 'coaps://{}:5684/15001/{}'.format(hubip, lightbulbid)
 
     if value == 'warm':
         payload = '{ "3311" : [{ "5709" : %s, "5710": %s }] }' % ("33135", "27211")
     elif value == 'normal':
         payload = '{ "3311" : [{ "5709" : %s, "5710": %s }] }' % ("30140", "26909")
-    else:
-        payload = '{ "3311" : [{ "5709" : %s, "5710": %s }] }' % ("24930", "14684")
+    elif value == 'cold':
+        payload = '{ "3311" : [{ "5709" : %s, "5710": %s }] }' % ("24930", "24684")
 
     api = '{} -m put -u "Client_identity" -k "{}" -e \'{}\' "{}"'.format(coap, securityid,
                                                                          payload, tradfriHub)
@@ -86,12 +87,12 @@ def tradfri_color_light(hubip, securityid, lightbulbid, value):
 def tradfri_power_group(hubip, securityid, groupid, value):
     """ function for power on/off tradfri lightbulb """
     coap = 'bin/coap-client'
-    tradfriHub = 'coaps://{}:5694/15004/{}' .format(hubip, groupid)
+    tradfriHub = 'coaps://{}:5684/15004/{}' .format(hubip, groupid)
 
     if value == 'on':
-        payload = '{ "3311" : [{ "5850" : 1 }] }'
+        payload = '{ "5850" : 1 }'
     else:
-        payload = '{ "3311" : [{ "5850" : 0 }] }'
+        payload = '{ "5850" : 0 }'
 
     api = '{} -m put -u "Client_identity" -k "{}" -e \'{}\' "{}"' .format(coap, securityid,
                                                                           payload, tradfriHub)
@@ -108,8 +109,9 @@ def tradfri_power_group(hubip, securityid, groupid, value):
 def tradfri_dim_group(hubip, securityid, groupid, value):
     """ function for dimming tradfri lightbulb """
     coap = 'bin/coap-client'
-    tradfriHub = 'coaps://{}:5694/15001/{}'.format(hubip, groupid)
-    payload = '{ "3311" : [{ "5851" : %s }] }' % int(value * 2.55)
+    tradfriHub = 'coaps://{}:5684/15001/{}'.format(hubip, groupid)
+    dim = float(value) * 2.55
+    payload = '{ "5851" : %s }' % int(dim)
 
     api = '{} -m put -u "Client_identity" -k "{}" -e \'{}\' "{}"'.format(coap, securityid,
                                                                          payload, tradfriHub)

@@ -29,11 +29,11 @@ from tradfri import tradfriActions
 def parse_args():
     """ function for getting parsed arguments """
     parser = argparse.ArgumentParser()
-    parser.add_argument('-a', '--action', choices=['power', 'brightness', 'color'], required=Ture)
+    parser.add_argument('-a', '--action', choices=['power', 'brightness', 'color'], required=True)
     parser.add_argument('-g', '--groupid', help='groupid got from tradfri-status.py',
                         required=True)
     parser.add_argument('-v', '--value',
-                        help='power: on/off, brightness', required=True)
+            help='power: on/off, brightness: 0 - 100', required=True)
 
     args = parser.parse_args()
 
@@ -55,7 +55,7 @@ def main():
             sys.stderr.write('[-] tradfri: power state can only be on/off\n')
             sys.exit(1)
     elif args.action == 'brightness':
-        if 1 <= argv.value <= 100:
+        if 0 <= int(argv.value) <= 100:
             tradfriActions.tradfri_dim_group(hubip, securityid, args.groupid, args.value)
         else:
             sys.stderr.write('[-] tradfri: dim value can only be obetween 1 - 100\n')
