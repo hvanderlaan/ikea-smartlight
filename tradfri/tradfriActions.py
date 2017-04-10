@@ -18,6 +18,10 @@
     that supports coap with dTLS. see ../bin/README how to compile libcoap with dTLS support
 """
 
+# pylint convention disablement:
+# C0103 -> invalid-name
+# pylint: disable=C0103
+
 import sys
 import os
 
@@ -37,7 +41,7 @@ def tradfri_power_light(hubip, securityid, lightbulbid, value):
     if os.path.exists(coap):
         os.popen(api)
     else:
-        sys.stderr/write('[-] libcoap: could not find libcoap\n')
+        sys.stderr.write('[-] libcoap: could not find libcoap\n')
         sys.exit(1)
 
     return True
@@ -56,7 +60,7 @@ def tradfri_dim_light(hubip, securityid, lightbulbid, value):
     if os.path.exists(coap):
         result = os.popen(api)
     else:
-        sys.stderr / write('[-] libcoap: could not find libcoap\n')
+        sys.stderr.write('[-] libcoap: could not find libcoap\n')
         sys.exit(1)
 
     return result
@@ -79,7 +83,7 @@ def tradfri_color_light(hubip, securityid, lightbulbid, value):
     if os.path.exists(coap):
         result = os.popen(api)
     else:
-        sys.stderr / write('[-] libcoap: could not find libcoap\n')
+        sys.stderr.write('[-] libcoap: could not find libcoap\n')
         sys.exit(1)
 
     return result
@@ -100,7 +104,7 @@ def tradfri_power_group(hubip, securityid, groupid, value):
     if os.path.exists(coap):
         result = os.popen(api)
     else:
-        sys.stderr/write('[-] libcoap: could not find libcoap\n')
+        sys.stderr.write('[-] libcoap: could not find libcoap\n')
         sys.exit(1)
 
     return result
@@ -119,7 +123,7 @@ def tradfri_dim_group(hubip, securityid, groupid, value):
     if os.path.exists(coap):
         result = os.popen(api)
     else:
-        sys.stderr / write('[-] libcoap: could not find libcoap\n')
+        sys.stderr.write('[-] libcoap: could not find libcoap\n')
         sys.exit(1)
 
     return result
