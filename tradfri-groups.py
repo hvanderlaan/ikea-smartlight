@@ -18,6 +18,11 @@
     that supports coap with dTLS. see ../bin/README how to compile libcoap with dTLS support
 """
 
+# pylint convention disablement:
+# C0103 -> invalid-name
+# C0200 -> consider-using-enumerate
+# pylint: disable=C0200, C0103
+
 from __future__ import print_function
 
 import sys
@@ -33,7 +38,7 @@ def parse_args():
     parser.add_argument('-g', '--groupid', help='groupid got from tradfri-status.py',
                         required=True)
     parser.add_argument('-v', '--value',
-            help='power: on/off, brightness: 0 - 100', required=True)
+                        help='power: on/off, brightness: 0 - 100', required=True)
 
     args = parser.parse_args()
 

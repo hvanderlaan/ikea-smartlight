@@ -18,6 +18,10 @@
     that supports coap with dTLS. see ../bin/README how to compile libcoap with dTLS support
 """
 
+# pylint convention disablement:
+# C0103 -> invalid-name
+# pylint: disable=C0103
+
 import sys
 import os
 import json
