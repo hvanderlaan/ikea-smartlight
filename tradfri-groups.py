@@ -55,7 +55,7 @@ def main():
             sys.stderr.write('[-] tradfri: power state can only be on/off\n')
             sys.exit(1)
     elif args.action == 'brightness':
-        if 0 <= int(argv.value) <= 100:
+        if 0 <= int(args.value) <= 100:
             tradfriActions.tradfri_dim_group(hubip, securityid, args.groupid, args.value)
         else:
             sys.stderr.write('[-] tradfri: dim value can only be obetween 1 - 100\n')

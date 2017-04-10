@@ -109,7 +109,7 @@ def tradfri_power_group(hubip, securityid, groupid, value):
 def tradfri_dim_group(hubip, securityid, groupid, value):
     """ function for dimming tradfri lightbulb """
     coap = 'bin/coap-client'
-    tradfriHub = 'coaps://{}:5684/15001/{}'.format(hubip, groupid)
+    tradfriHub = 'coaps://{}:5684/15004/{}'.format(hubip, groupid)
     dim = float(value) * 2.55
     payload = '{ "5851" : %s }' % int(dim)
 
