@@ -29,11 +29,11 @@ from tradfri import tradfriActions
 def parse_args():
     """ function for getting parsed arguments """
     parser = argparse.ArgumentParser()
-    parser.add_argument('-a', '--action', choices=['power', 'brightness', 'color'], required=Ture)
+    parser.add_argument('-a', '--action', choices=['power', 'brightness', 'color'], required=True)
     parser.add_argument('-l', '--lightbulbid', help='lightbulbid got from tradfri-status.py',
                         required=True)
     parser.add_argument('-v', '--value',
-                        help='power: on/off, brightness: 1-100, color: warm/normal/cold',
+                        help='power: on/off, brightness: 0-100, color: warm/normal/cold',
                         required=True)
 
     args = parser.parse_args()
@@ -56,10 +56,10 @@ def main():
             sys.stderr.write('[-] tradfri: power state can only be on/off\n')
             sys.exit(1)
     elif args.action == 'brightness':
-        if 1 <= argv.value <= 100:
+        if 1 <= int(args.value) <= 100:
             tradfriActions.tradfri_dim_light(hubip, securityid, args.lightbulbid, args.value)
         else:
-            sys.stderr.write('[-] tradfri: dim value can only be obetween 1 - 100\n')
+            sys.stderr.write('[-] tradfri: dim value can only be between 1 - 100\n')
             sys.exit(1)
     elif args.action == 'color':
         if args.value == 'warm' or args.value == 'normal' or args.value == 'cold':

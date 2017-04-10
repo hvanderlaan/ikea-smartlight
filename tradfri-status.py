@@ -60,10 +60,13 @@ def main():
     for _ in range(len(lightbulb)):
         try:
             if lightbulb[_]["3311"][0]["5850"] == 0:
-                print('bulbid {}, name: {}, bightness: {}, state: off' .format(lightbulb[_]["9003"], lightbulb[_]["9001"], lightbulb[_]["3311"][0]["5851"]))
+                print('bulbid {}, name: {}, bightness: {}, state: off'
+                      .format(lightbulb[_]["9003"], lightbulb[_]["9001"],
+                              lightbulb[_]["3311"][0]["5851"]))
             else:
                 print('bulbid {}, name: {}, bightness: {}, state: on'
-                      .format(lightbulb[_]["9003"], lightbulb[_]["9001"], lightbulb[_]["5851"]))
+                      .format(lightbulb[_]["9003"], lightbulb[_]["9001"],
+                              lightbulb[_]["3311"][0]["5851"]))
         except KeyError:
             # device is not a lightbulb but a remote control, dimmer or sensor
             pass
