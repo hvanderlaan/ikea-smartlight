@@ -27,33 +27,34 @@ the framework also requires `tqdm` for showing progressbars, you could strip it 
 
 ### output
 ```
-./get-tradfri-status.py
-[ ] smartlight: receiving tradfri lightbulbs information
-getting lightbulbs: 100%|████████████████████████████████████████████████████████| 7/7 [00:00<00:00,  9.52 lightbulbs/s]
-getting groups: 100%|████████████████████████████████████████████████████████████████| 4/4 [00:00<00:00, 10.62 groups/s]
-[+] smartlight: done getting tradfri lightbulbs information
+./tradfri-status.py
+[ ] tradfri: requireing all tradfri devices, please wait ...
+tradfri lightbulbs: 100%|█████████████████████████████████████████████████████████| 8/8 [00:00<00:00, 10.93 lightbulb/s]
+tradfri groups: 100%|█████████████████████████████████████████████████████████████████| 4/4 [00:00<00:00, 10.50 group/s]
+[+] tradfri: device information gathered
 ===========================================================
 
-bulbid: 1, name: lamp tv, state: off
-bulbid: 2, name: lamp bank, state: off
-bulbid: 3, name: lamp kastje, state: off
-bulbid: 4, name: lamp hal boven, state: off
-bulbid: 5, name: lamp slaapkamer, state: off
-bulbid: 6, name: lamp hal beneden, state: off
+bulbid 65537, name: TRADFRI bulb E27, bightness: 1, state: off
+bulbid 65538, name: TRADFRI bulb E27, bightness: 1, state: off
+bulbid 65539, name: TRADFRI bulb E27, bightness: 1, state: off
+bulbid 65540, name: TRADFRI bulb E27, bightness: 1, state: off
+bulbid 65542, name: TRADFRI bulb E27, bightness: 1, state: off
+bulbid 65541, name: TRADFRI bulb E27, bightness: 1, state: off
+bulbid 65544, name: TRADFRI bulb E27, bightness: 254, state: off
 
-groupid: 0, name: hal beneden, state off
-groupid: 1, name: slaapkamer, state on
-groupid: 2, name: woonkamer, state off
-groupid: 3, name: hal boven, state on
+
+groupid: 137274, name: hal beneden, state: off
+groupid: 183216, name: slaapkamer, state: off
+groupid: 140387, name: woonkamer, state: off
+groupid: 186970, name: hal boven, state: off
 ```
 
 ### todo
-- [ ] add change state (power on/off lightbulb)
-- [ ] add dimmer value (dimm lightbulb)
-- [ ] add change state group (power on/off groups)
-- [ ] add dimmer value group (dimm group)
-- [ ] add color temperature lightbulb (switch to cold, normal or warm)
-- [ ] add color temperature group (switch to cold, normal or warm)
+- [X] add change state (power on/off lightbulb)
+- [X] add dimmer value (dimm lightbulb)
+- [X] add change state group (power on/off groups)
+- [X] add dimmer value group (dimm group)
+- [X] add color temperature lightbulb (switch to cold, normal or warm)
 
 ### licensing and credits
 ikea-smartlight is licensed under the GPLv3:
