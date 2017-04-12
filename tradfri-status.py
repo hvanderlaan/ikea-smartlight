@@ -24,6 +24,7 @@
 # pylint: disable=C0200, C0103
 
 from __future__ import print_function
+from __future__ import unicode_literals
 
 import sys
 import time
