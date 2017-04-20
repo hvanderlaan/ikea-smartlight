@@ -12,7 +12,7 @@
 # - v1.0.0      initial concept                                         (harald)
 
 """
-    tradfri-status.py - getting status of the Ikea tradfri smart lights
+    tradfri-status.py - getting status of the Ikea Tradfri smart lights
 
     This module requires libcoap with dTLS compiled, at this moment there is no python coap module
     that supports coap with dTLS. see ../bin/README how to compile libcoap with dTLS support
@@ -43,11 +43,11 @@ def main():
     lightbulb = []
     lightgroup = []
 
-    print('[ ] tradfri: requireing all tradfri devices, please wait ...')
+    print('[ ] Tradfri: acquiring all Tradfri devices, please wait ...')
     devices = tradfriStatus.tradfri_get_devices(hubip, securityid)
     groups = tradfriStatus.tradfri_get_groups(hubip, securityid)
 
-    for deviceid in tqdm(range(len(devices)), desc='tradfri lightbulbs', unit=' lightbulb'):
+    for deviceid in tqdm(range(len(devices)), desc='Tradfri lightbulbs', unit=' lightbulb'):
         lightbulb.append(tradfriStatus.tradfri_get_lightbulb(hubip, securityid,
                                                              str(devices[deviceid])))
 
@@ -55,21 +55,21 @@ def main():
     # in this case you could increse the sleep timer
     time.sleep(.5)
 
-    for groupid in tqdm(range(len(groups)), desc='tradfri groups', unit=' group'):
+    for groupid in tqdm(range(len(groups)), desc='Tradfri groups', unit=' group'):
         lightgroup.append(tradfriStatus.tradfri_get_group(hubip, securityid,
                                                           str(groups[groupid])))
 
-    print('[+] tradfri: device information gathered')
+    print('[+] Tradfri: device information gathered')
     print('===========================================================\n')
 
     for _ in range(len(lightbulb)):
         try:
             if lightbulb[_]["3311"][0]["5850"] == 0:
-                print('bulbid {}, name: {}, bightness: {}, state: off'
+                print('bulb ID {}, name: {}, brightness: {}, state: off'
                       .format(lightbulb[_]["9003"], lightbulb[_]["9001"],
                               lightbulb[_]["3311"][0]["5851"]))
             else:
-                print('bulbid {}, name: {}, bightness: {}, state: on'
+                print('bulb ID {}, name: {}, brightness: {}, state: on'
                       .format(lightbulb[_]["9003"], lightbulb[_]["9001"],
                               lightbulb[_]["3311"][0]["5851"]))
         except KeyError:
@@ -80,10 +80,10 @@ def main():
 
     for _ in range(len(lightgroup)):
         if lightgroup[_]["5850"] == 0:
-            print('groupid: {}, name: {}, state: off'
+            print('group ID: {}, name: {}, state: off'
                   .format(lightgroup[_]["9003"], lightgroup[_]["9001"]))
         else:
-            print('groupid: {}, name: {}, state: on'
+            print('group ID: {}, name: {}, state: on'
                   .format(lightgroup[_]["9003"], lightgroup[_]["9001"]))
 
 if __name__ == "__main__":
