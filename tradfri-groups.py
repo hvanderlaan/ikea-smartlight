@@ -25,6 +25,7 @@
 
 from __future__ import print_function
 
+import os
 import sys
 import ConfigParser
 import argparse
@@ -48,7 +49,8 @@ def main():
     """ main function """
     args = parse_args()
     conf = ConfigParser.ConfigParser()
-    conf.read('tradfri.cfg')
+    script_dir = os.path.dirname(os.path.realpath(__file__))
+    conf.read(script_dir + '/tradfri.cfg')
 
     hubip = conf.get('tradfri', 'hubip')
     securityid = conf.get('tradfri', 'securityid')
