@@ -1,3 +1,4 @@
 tradfri/*.pyc
 bin/coap-client
 bin/.libs/*
+tradfri.cfg

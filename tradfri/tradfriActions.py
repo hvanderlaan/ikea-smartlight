@@ -25,9 +25,11 @@
 import sys
 import os
 
+global coap
+coap = '/usr/local/bin/coap-client'
+
 def tradfri_power_light(hubip, securityid, lightbulbid, value):
     """ function for power on/off tradfri lightbulb """
-    coap = 'bin/coap-client'
     tradfriHub = 'coaps://{}:5684/15001/{}' .format(hubip, lightbulbid)
 
     if value == 'on':
@@ -49,7 +51,6 @@ def tradfri_power_light(hubip, securityid, lightbulbid, value):
 
 def tradfri_dim_light(hubip, securityid, lightbulbid, value):
     """ function for dimming tradfri lightbulb """
-    coap = 'bin/coap-client'
     dim = float(value) * 2.55
     tradfriHub = 'coaps://{}:5684/15001/{}'.format(hubip, lightbulbid)
     payload = '{ "3311" : [{ "5851" : %s }] }' % int(dim)
@@ -67,7 +68,6 @@ def tradfri_dim_light(hubip, securityid, lightbulbid, value):
 
 def tradfri_color_light(hubip, securityid, lightbulbid, value):
     """ function for color temperature tradfri lightbulb """
-    coap = 'bin/coap-client'
     tradfriHub = 'coaps://{}:5684/15001/{}'.format(hubip, lightbulbid)
 
     if value == 'warm':
@@ -90,7 +90,6 @@ def tradfri_color_light(hubip, securityid, lightbulbid, value):
 
 def tradfri_power_group(hubip, securityid, groupid, value):
     """ function for power on/off tradfri lightbulb """
-    coap = 'bin/coap-client'
     tradfriHub = 'coaps://{}:5684/15004/{}' .format(hubip, groupid)
 
     if value == 'on':
@@ -112,7 +111,6 @@ def tradfri_power_group(hubip, securityid, groupid, value):
 
 def tradfri_dim_group(hubip, securityid, groupid, value):
     """ function for dimming tradfri lightbulb """
-    coap = 'bin/coap-client'
     tradfriHub = 'coaps://{}:5684/15004/{}'.format(hubip, groupid)
     dim = float(value) * 2.55
     payload = '{ "5851" : %s }' % int(dim)

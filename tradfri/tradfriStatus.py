@@ -26,12 +26,15 @@ import sys
 import os
 import json
 
+global coap
+coap = '/usr/local/bin/coap-client'
+timeout = 5
+
 def tradfri_get_devices(hubip, securityid):
     """ function for getting all tradfri device ids """
-    coap = 'bin/coap-client'
     tradfriHub = 'coaps://{}:5684/15001' .format(hubip)
-    api = '{} -m get -u "Client_identity" -k "{}" "{}" | awk \'NR==4\'' .format(coap, securityid,
-                                                                                tradfriHub)
+    api = '{} -m get -u "Client_identity" -k "{}" "{}" -B {} | awk \'NR==4\'' .format(coap, securityid,
+                                                                                tradfriHub, timeout)
 
     if os.path.exists(coap):
         result = os.popen(api)
@@ -43,10 +46,9 @@ def tradfri_get_devices(hubip, securityid):
 
 def tradfri_get_lightbulb(hubip, securityid, deviceid):
     """ function for getting tradfri lightbulb information """
-    coap = 'bin/coap-client'
     tradfriHub = 'coaps://{}:5684/15001/{}' .format(hubip, deviceid)
-    api = '{} -m get -u "Client_identity" -k "{}" "{}" | awk \'NR==4\''.format(coap, securityid,
-                                                                               tradfriHub)
+    api = '{} -m get -u "Client_identity" -k "{}" "{}" -B {} | awk \'NR==4\''.format(coap, securityid,
+                                                                               tradfriHub, timeout)
 
     if os.path.exists(coap):
         result = os.popen(api)
@@ -58,10 +60,9 @@ def tradfri_get_lightbulb(hubip, securityid, deviceid):
 
 def tradfri_get_groups(hubip, securityid):
     """ function for getting tradfri groups """
-    coap = 'bin/coap-client'
     tradfriHub = 'coaps://{}:5684/15004'.format(hubip)
-    api = '{} -m get -u "Client_identity" -k "{}" "{}" | awk \'NR==4\''.format(coap, securityid,
-                                                                               tradfriHub)
+    api = '{} -m get -u "Client_identity" -k "{}" "{}" -B {} | awk \'NR==4\''.format(coap, securityid,
+                                                                               tradfriHub, timeout)
 
     if os.path.exists(coap):
         result = os.popen(api)
@@ -73,10 +74,9 @@ def tradfri_get_groups(hubip, securityid):
 
 def tradfri_get_group(hubip, securityid, groupid):
     """ function for getting tradfri group information """
-    coap = 'bin/coap-client'
     tradfriHub = 'coaps://{}:5684/15004/{}'.format(hubip, groupid)
-    api = '{} -m get -u "Client_identity" -k "{}" "{}" | awk \'NR==4\''.format(coap, securityid,
-                                                                               tradfriHub)
+    api = '{} -m get -u "Client_identity" -k "{}" "{}" -B {} | awk \'NR==4\''.format(coap, securityid,
+                                                                               tradfriHub, timeout)
 
     if os.path.exists(coap):
         result = os.popen(api)

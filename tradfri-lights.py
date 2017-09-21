@@ -26,6 +26,7 @@
 from __future__ import print_function
 from __future__ import unicode_literals
 
+import os
 import sys
 import ConfigParser
 import argparse
@@ -50,7 +51,8 @@ def main():
     """ main function """
     args = parse_args()
     conf = ConfigParser.ConfigParser()
-    conf.read('tradfri.cfg')
+    script_dir = os.path.dirname(os.path.realpath(__file__))
+    conf.read(script_dir + '/tradfri.cfg')
 
     hubip = conf.get('tradfri', 'hubip')
     securityid = conf.get('tradfri', 'securityid')
@@ -59,19 +61,19 @@ def main():
         if args.value == 'on' or args.value == 'off':
             tradfriActions.tradfri_power_light(hubip, securityid, args.lightbulbid, args.value)
         else:
-            sys.stderr.write('[-] tradfri: power state can only be on/off\n')
+            sys.stderr.write('[-] Tradfri: power state can only be on/off\n')
             sys.exit(1)
     elif args.action == 'brightness':
         if 1 <= int(args.value) <= 100:
             tradfriActions.tradfri_dim_light(hubip, securityid, args.lightbulbid, args.value)
         else:
-            sys.stderr.write('[-] tradfri: dim value can only be between 1 - 100\n')
+            sys.stderr.write('[-] Tradfri: dim value can only be between 1 and 100\n')
             sys.exit(1)
     elif args.action == 'color':
         if args.value == 'warm' or args.value == 'normal' or args.value == 'cold':
             tradfriActions.tradfri_color_light(hubip, securityid, args.lightbulbid, args.value)
         else:
-            sys.stderr.write('[-] tradfri: color value can only be warm/normal/cold\n')
+            sys.stderr.write('[-] Tradfri: color value can only be warm/normal/cold\n')
             sys.exit(1)
 
 if __name__ == "__main__":
