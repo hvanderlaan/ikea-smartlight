@@ -6,8 +6,13 @@ at this moment there is no coap libs with dTLS, the ikea smart lights are using 
 
 when this is installed run the build script for compiling libcoap
 ```bash
-cd bin
-./build.sh
+sudo apt-get install automake libtool
+git clone --depth 1 --recursive -b dtls https://github.com/home-assistant/libcoap.git
+cd libcoap
+./autogen.sh
+./configure --disable-documentation --disable-shared --without-debug CFLAGS="-D COAP_DEBUG_FD=stderr"
+make
+sudo make install
 ```
 
 the framework also requires `tqdm` for showing progressbars, you could strip it from the sourcecode or install the module for python: `pip install pip --upgrade && pip install tqdm`.
@@ -50,6 +55,7 @@ groupid: 186970, name: hal boven, state: off
 ```
 
 ### todo
+- [ ] add support for new color lightbulbs
 - [X] add change state (power on/off lightbulb)
 - [X] add dimmer value (dimm lightbulb)
 - [X] add change state group (power on/off groups)
