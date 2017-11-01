@@ -13,7 +13,7 @@ when this is done create a file called tradfri.cfg and add
 [tradfri]
 hubip = x.x.x.x
 apiuser = username
-apipsk = pre shared key
+apikey = pre shared key
 ```
 
 ### requirements
