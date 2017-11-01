@@ -4,10 +4,11 @@
 # purpose     : getting status from the Ikea tradfri smart lights
 #
 # author      : harald van der laan
-# date        : 2017/04/10
-# version     : v1.1.0
+# date        : 2017/11/01
+# version     : v1.2.0
 #
 # changelog   :
+# - v1.2.0      update for gateway 1.1.15 issues                        (harald)
 # - v1.1.0      refactor for cleaner code                               (harald)
 # - v1.0.0      initial concept                                         (harald)
 
@@ -41,17 +42,18 @@ def main():
     conf.read(script_dir + '/tradfri.cfg')
 
     hubip = conf.get('tradfri', 'hubip')
-    securityid = conf.get('tradfri', 'securityid')
+    apiuser = conf.get('tradfri', 'apiuser')
+    apikey = conf.get('tradfri', 'apikey')
 
     lightbulb = []
     lightgroup = []
 
     print('[ ] Tradfri: acquiring all Tradfri devices, please wait ...')
-    devices = tradfriStatus.tradfri_get_devices(hubip, securityid)
-    groups = tradfriStatus.tradfri_get_groups(hubip, securityid)
+    devices = tradfriStatus.tradfri_get_devices(hubip, apiuser, apikey)
+    groups = tradfriStatus.tradfri_get_groups(hubip, apiuser, apikey)
 
     for deviceid in tqdm(range(len(devices)), desc='Tradfri lightbulbs', unit=' lightbulb'):
-        lightbulb.append(tradfriStatus.tradfri_get_lightbulb(hubip, securityid,
+        lightbulb.append(tradfriStatus.tradfri_get_lightbulb(hubip, apiuser, apikey,
                                                              str(devices[deviceid])))
 
     # sometimes the request are to fast, the will decline the request (flood security)
@@ -59,7 +61,7 @@ def main():
     time.sleep(.5)
 
     for groupid in tqdm(range(len(groups)), desc='Tradfri groups', unit=' group'):
-        lightgroup.append(tradfriStatus.tradfri_get_group(hubip, securityid,
+        lightgroup.append(tradfriStatus.tradfri_get_group(hubip, apiuser, apikey,
                                                           str(groups[groupid])))
 
     print('[+] Tradfri: device information gathered')
