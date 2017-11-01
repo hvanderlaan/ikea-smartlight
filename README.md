@@ -15,6 +15,12 @@ hubip = x.x.x.x
 apiuser = username
 apikey = pre shared key
 ```
+getting the apple HomeKit code for your gateway. first ensure you have the pre shared key.
+```bash
+coap-client -m get -u "IDENTITY" -k "PRE SHARED KEY" "coaps://IP_ADDRESS:5684/15011/15012" 2> /dev/null
+# Apple HomeKit code looks like: { ... 9083: XXX-XX-XXX, ...}
+# XXX-XX-XXX is your HomeKit code
+```
 
 ### requirements
 at this moment there is no coap libs with dTLS, the ikea smart lights are using dTLS with coap for security. the only option is to build a new libcoap with dTLS included. libcoap requires `cunit, a2x, doxygen and dot` you need to install these requirements first.
