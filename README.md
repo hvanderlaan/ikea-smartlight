@@ -1,6 +1,21 @@
 # ikea-smartlight
 python framework for controlling the Ikea smart lights (tradfri)
 
+### update
+as of gateway version 1.1.15 the usage of securityid is prohibated, you need to register a api user and you will get a pre shared key from the gateway. follow the steps below and all should be well
+```bash
+coap-client -m post -u "Client_identity" -k "SECURITY_CODE" -e '{"9090":"IDENTITY"}' "coaps://IP_ADDRESS:5684/15011/9063"
+# SECURITY_CODE = the security code under the gateway
+# IDENTITY      = your api user
+```
+when this is done create a file called tradfri.cfg and add
+```ini
+[tradfri]
+hubip = x.x.x.x
+apiuser = username
+apipsk = pre shared key
+```
+
 ### requirements
 at this moment there is no coap libs with dTLS, the ikea smart lights are using dTLS with coap for security. the only option is to build a new libcoap with dTLS included. libcoap requires `cunit, a2x, doxygen and dot` you need to install these requirements first.
 
