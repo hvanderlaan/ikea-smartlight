@@ -47,9 +47,9 @@ coap-client -m post -u "Client_identity" -k "<key>" -e '{"9090":"IDENTITY"}' "co
 ./coap-client -m get -u "IDENTITY" -k "<psk>" "coaps://<hup>:5684/15001/65537"
 
 # turn on tradfri lightbulb
-./coap-client -m put -u "IDENTITY" -k "<psk>" -e '{ "3311" : [{ "5850" : 1 ]} }' "coaps://<hup>:5684/15001/65537"
+./coap-client -m put -u "IDENTITY" -k "<psk>" -e '{ "3311" : [{ "5850" : 1 }] }' "coaps://<hup>:5684/15001/65537"
 # turn off tradfri lightbulb
-./coap-client -m put -u "IDENTITY" -k "<psk>" -e '{ "3311" : [{ "5850" : 0 ]} }' "coaps://<hup>:5684/15001/65537"
+./coap-client -m put -u "IDENTITY" -k "<psk>" -e '{ "3311" : [{ "5850" : 0 }] }' "coaps://<hup>:5684/15001/65537"
 ```
 
 ### output
