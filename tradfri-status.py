@@ -52,7 +52,7 @@ def main():
     devices = tradfriStatus.tradfri_get_devices(hubip, apiuser, apikey)
     groups = tradfriStatus.tradfri_get_groups(hubip, apiuser, apikey)
 
-    for deviceid in tqdm(range(len(devices)), desc='Tradfri lightbulbs', unit=' lightbulb'):
+    for deviceid in tqdm(range(len(devices)), desc='Tradfri devices', unit=' devices'):
         lightbulb.append(tradfriStatus.tradfri_get_lightbulb(hubip, apiuser, apikey,
                                                              str(devices[deviceid])))
 
