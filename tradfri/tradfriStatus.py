@@ -42,8 +42,8 @@ def tradfri_get_devices(hubip, apiuser, apikey):
     else:
         sys.stderr.write('[-] libcoap: could not find libcoap.\n')
         sys.exit(1)
-
-    return json.loads(result.read().strip('\n'))
+    
+    return json.loads(result.read().split('\n')[3])
 
 def tradfri_get_lightbulb(hubip, apiuser, apikey, deviceid):
     """ function for getting tradfri lightbulb information """
@@ -57,7 +57,7 @@ def tradfri_get_lightbulb(hubip, apiuser, apikey, deviceid):
         sys.stderr.write('[-] libcoap: could not find libcoap.\n')
         sys.exit(1)
 
-    return json.loads(result.read().strip('\n'))
+    return json.loads(result.read().split('\n')[3])
 
 def tradfri_get_groups(hubip, apiuser, apikey):
     """ function for getting tradfri groups """
@@ -71,7 +71,7 @@ def tradfri_get_groups(hubip, apiuser, apikey):
         sys.stderr.write('[-] libcoap: could not find libcoap.\n')
         sys.exit(1)
 
-    return json.loads(result.read().strip('\n'))
+    return json.loads(result.read().split('\n')[3])
 
 def tradfri_get_group(hubip, apiuser, apikey, groupid):
     """ function for getting tradfri group information """
@@ -85,4 +85,4 @@ def tradfri_get_group(hubip, apiuser, apikey, groupid):
         sys.stderr.write('[-] libcoap: could not find libcoap.\n')
         sys.exit(1)
 
-    return json.loads(result.read().strip('\n'))
+    return json.loads(result.read().split('\n')[3])
