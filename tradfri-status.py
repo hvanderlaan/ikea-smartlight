@@ -30,7 +30,11 @@ from __future__ import unicode_literals
 import os
 import sys
 import time
-import ConfigParser
+
+try:
+    import ConfigParser
+except:
+    import configparser as ConfigParser
 
 from tradfri import tradfriStatus
 from tqdm import tqdm
