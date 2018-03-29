@@ -69,8 +69,12 @@ def main():
     for _ in range(len(lightbulb)):
         try:
             brightness = lightbulb[_]["3311"][0]["5851"]
-            warmth     = float(lightbulb[_]["3311"][0]["5711"])
-            warmth     = round((warmth-250)/(454-250)*100,1)# reported as a percentage (100% maximum warmth)
+            try:
+                warmth     = float(lightbulb[_]["3311"][0]["5711"])
+                warmth     = round((warmth-250)/(454-250)*100,1)# reported as a percentage (100% maximum warmth)
+            except KeyError:
+                warmth = "NAN"
+
             if lightbulb[_]["3311"][0]["5850"] == 0:
                 print('bulb ID {0:<5}, name: {1: <35}, brightness: {2: <3}, warmth: {3: >5}%, state: off'
                       .format(lightbulb[_]["9003"], lightbulb[_]["9001"],
