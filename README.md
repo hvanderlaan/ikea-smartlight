@@ -1,4 +1,4 @@
-# ikea-smartlight
+# ikea-smartlights
 python framework for controlling the Ikea smart lights (tradfri)
 
 ### update
