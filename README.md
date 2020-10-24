@@ -56,12 +56,11 @@ python tradfri-lights.py -a power -l {LIGHTBULB_ID} -v on
 
 ### dim the light
 ```
-python tradfri-lights.py -a brightness -l {LIGHTBULB_ID} -v 127
+python tradfri-lights.py -a brightness -l {LIGHTBULB_ID} -v 50
 ```
 
 ### turn off all ligths in room
 ```
-python tradfri-groups.py -a brightness -g {GROUP_ID} -v 255
 python tradfri-groups.py -a power -g {GROUP_ID} -v off
 ```
 
