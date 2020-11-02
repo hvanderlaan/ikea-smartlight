@@ -72,7 +72,7 @@ def main():
             sys.stderr.write('[-] Tradfri: dim value can only be between 1 and 100\n')
             sys.exit(1)
     elif args.action == 'color':
-        if args.value == 'warm' or args.value == 'normal' or args.value == 'cold':
+        if args.value in tradfriActions.get_color_dict().keys():
             tradfriActions.tradfri_color_light(hubip, apiuser, apikey, args.lightbulbid, args.value)
         else:
             sys.stderr.write('[-] Tradfri: color value can only be warm/normal/cold\n')
