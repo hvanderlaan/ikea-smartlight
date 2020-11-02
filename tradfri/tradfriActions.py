@@ -72,11 +72,11 @@ def tradfri_color_light(hubip, apiuser, apikey, lightbulbid, value):
     tradfriHub = 'coaps://{}:5684/15001/{}'.format(hubip, lightbulbid)
 
     if value == 'warm':
-        payload = '{ "3311" : [{ "5709" : %s, "5710": %s }] }' % ("33135", "27211")
+        payload = '{ "3311" : [{ "5706" : "%s"}] }' % ("efd275")
     elif value == 'normal':
-        payload = '{ "3311" : [{ "5709" : %s, "5710": %s }] }' % ("30140", "26909")
+        payload = '{ "3311" : [{ "5706" : "%s"}] }' % ("f1e0b5")
     elif value == 'cold':
-        payload = '{ "3311" : [{ "5709" : %s, "5710": %s }] }' % ("24930", "24684")
+        payload = '{ "3311" : [{ "5706" : "%s"}] }' % ("f5faf6")
 
     api = '{} -m put -u "{}" -k "{}" -e \'{}\' "{}"'.format(coap, apiuser, apikey,
                                                                          payload, tradfriHub)
