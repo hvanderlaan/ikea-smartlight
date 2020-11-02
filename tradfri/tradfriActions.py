@@ -25,7 +25,6 @@
 
 import sys
 import os
-import json
 from tradfriStatus import tradfri_get_lightbulb
 
 global coap
@@ -75,6 +74,7 @@ def tradfri_color_light(hubip, apiuser, apikey, lightbulbid, value):
     payload = None
     colors = get_color_dict()
     
+    print tradfri_get_lightbulb(hubip, apiuser, apikey, lightbulbid)[u'3'][u'1']
     if value in ['warm', 'normal', 'cold']:
         payload = '{ "3311" : [{ "5706" : "%s"}] }' % (colors[value])
     
@@ -83,8 +83,10 @@ def tradfri_color_light(hubip, apiuser, apikey, lightbulbid, value):
 
         if not color_supported:
             print("Your lamp does not support colors.")
+            sys.exit(1)
 
     payload = '{ "3311" : [{ "5706" : "%s"}] }' % (colors[value])
+
     api = '{} -m put -u "{}" -k "{}" -e \'{}\' "{}"'.format(coap, apiuser, apikey,
                                                                          payload, tradfriHub)
     if os.path.exists(coap):
