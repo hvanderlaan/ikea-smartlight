@@ -31,6 +31,7 @@ import os
 import sys
 import ConfigParser
 import argparse
+from textwrap import wrap
 
 from tradfri import tradfriActions
 
@@ -72,10 +73,17 @@ def main():
             sys.stderr.write('[-] Tradfri: dim value can only be between 1 and 100\n')
             sys.exit(1)
     elif args.action == 'color':
-        if args.value == 'warm' or args.value == 'normal' or args.value == 'cold':
+        if args.value in tradfriActions.get_color_dict().keys():
             tradfriActions.tradfri_color_light(hubip, apiuser, apikey, args.lightbulbid, args.value)
         else:
-            sys.stderr.write('[-] Tradfri: color value can only be warm/normal/cold\n')
+            message = '[-] Tradfri: color value can only be: '
+            for color in tradfriActions.get_color_dict().keys():
+                if ' ' in color:
+                    message += " '%s'," % color
+                else:
+                    message += " %s," % color
+                
+            sys.stderr.write("\n".join(wrap(message)))
             sys.exit(1)
 
 if __name__ == "__main__":

@@ -25,6 +25,7 @@
 
 import sys
 import os
+from tradfriStatus import tradfri_get_lightbulb
 
 global coap
 coap = '/usr/local/bin/coap-client'
@@ -70,17 +71,24 @@ def tradfri_dim_light(hubip, apiuser, apikey, lightbulbid, value):
 def tradfri_color_light(hubip, apiuser, apikey, lightbulbid, value):
     """ function for color temperature tradfri lightbulb """
     tradfriHub = 'coaps://{}:5684/15001/{}'.format(hubip, lightbulbid)
+    payload = None
+    colors = get_color_dict()
+    
+    print tradfri_get_lightbulb(hubip, apiuser, apikey, lightbulbid)[u'3'][u'1']
+    if value in ['warm', 'normal', 'cold']:
+        payload = '{ "3311" : [{ "5706" : "%s"}] }' % (colors[value])
+    
+    if payload is None:
+        color_supported = 'CWS' in tradfri_get_lightbulb(hubip, apiuser, apikey, lightbulbid)[u'3'][u'1']
 
-    if value == 'warm':
-        payload = '{ "3311" : [{ "5709" : %s, "5710": %s }] }' % ("33135", "27211")
-    elif value == 'normal':
-        payload = '{ "3311" : [{ "5709" : %s, "5710": %s }] }' % ("30140", "26909")
-    elif value == 'cold':
-        payload = '{ "3311" : [{ "5709" : %s, "5710": %s }] }' % ("24930", "24684")
+        if not color_supported:
+            print("Your lamp does not support colors.")
+            sys.exit(1)
+
+    payload = '{ "3311" : [{ "5706" : "%s"}] }' % (colors[value])
 
     api = '{} -m put -u "{}" -k "{}" -e \'{}\' "{}"'.format(coap, apiuser, apikey,
                                                                          payload, tradfriHub)
-
     if os.path.exists(coap):
         result = os.popen(api)
     else:
@@ -126,3 +134,27 @@ def tradfri_dim_group(hubip, apiuser, apikey, groupid, value):
         sys.exit(1)
 
     return result
+
+def get_color_dict():
+    return {
+    'blue' : '4a418a',
+    'light blue' : '6c83ba',
+    'saturated purple' : '8f2686',
+    'lime' : 'a9d62b',
+    'light purple': 'c984bb',
+    'yellow' : 'd6e44b',
+    'saturated pink' : 'd9337c',
+    'dark peach' : 'da5d41',
+    'saturated red' : 'dc4b31',
+    'cold sky' : 'dcf0f8', 
+    'pink' : 'e491af',
+    'peach' : 'e57345',
+    'warm amber' : 'e78834',
+    'light pink' : 'e8bedd',
+    'cool daylight' : 'eaf6fb',
+    'candlelight' : 'ebb63e',
+    'warm' : 'efd275',
+    'normal' : 'f1e0b5',
+    'sunrise' : 'f2eccf',
+    'cold' : 'f5faf6',
+    }
