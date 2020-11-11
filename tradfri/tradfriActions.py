@@ -74,7 +74,6 @@ def tradfri_color_light(hubip, apiuser, apikey, lightbulbid, value):
     payload = None
     colors = get_color_dict()
     
-    print tradfri_get_lightbulb(hubip, apiuser, apikey, lightbulbid)[u'3'][u'1']
     if value in ['warm', 'normal', 'cold']:
         payload = '{ "3311" : [{ "5706" : "%s"}] }' % (colors[value])
     
