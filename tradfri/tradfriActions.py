@@ -25,6 +25,8 @@
 
 import sys
 import os
+import json
+import random
 from tradfriStatus import tradfri_get_lightbulb
 
 global coap
@@ -134,6 +136,27 @@ def tradfri_dim_group(hubip, apiuser, apikey, groupid, value):
 
     return result
 
+def tradfri_authenticate(hubip, securitycode, apiuser = "TRADFRI_PY_API_" + str(random.randint(0, 1000)) ):
+    """ function for authenticating tradfri and getting apikey """
+    tradfriHub = 'coaps://{}:5684/15011/9063'.format(hubip)
+    payload = '{"9090":"' + apiuser + '"}'
+
+    api = '{} -m post -u "Client_identity" -k "{}" -e \'{}\' "{}"'.format(coap, securitycode,
+                                                                         payload, tradfriHub)
+                                                                         
+    if os.path.exists(coap):
+        result = os.popen(api)
+    else:
+        sys.stderr.write('[-] libcoap: could not find libcoap\n')
+        sys.exit(1)
+
+    try:
+        apikey = json.loads(result.read().strip('\n').split('\n')[-1])["9091"]
+    except ValueError:
+        raise Exception("Didn't receive valid apikey. This is because the api isn't reachable or the api user already exists.")
+
+    return apiuser,apikey
+    
 def get_color_dict():
     return {
     'blue' : '4a418a',
