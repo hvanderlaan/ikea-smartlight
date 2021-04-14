@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # file        : tradfri/tradfriActions.py
 # purpose     : module for controling status of the Ikea tradfri smart lights
@@ -19,18 +19,13 @@
     that supports coap with dTLS. see ../bin/README how to compile libcoap with dTLS support
 """
 
-# pylint convention disablement:
-# C0103 -> invalid-name
-# pylint: disable=C0103
-
 import sys
-import os
 import json
 import random
-from tradfriStatus import tradfri_get_lightbulb
+import subprocess
+from .tradfriStatus import tradfri_get_lightbulb
 
-global coap
-coap = '/usr/local/bin/coap-client'
+coap = 'coap-client'
 
 def tradfri_power_light(hubip, apiuser, apikey, lightbulbid, value):
     """ function for power on/off tradfri lightbulb """
@@ -44,11 +39,7 @@ def tradfri_power_light(hubip, apiuser, apikey, lightbulbid, value):
     api = '{} -m put -u "{}" -k "{}" -e \'{}\' "{}"' .format(coap, apiuser, apikey,
                                                                           payload, tradfriHub)
 
-    if os.path.exists(coap):
-        os.popen(api)
-    else:
-        sys.stderr.write('[-] libcoap: could not find libcoap\n')
-        sys.exit(1)
+    subprocess.check_output(api, shell=True)
 
     return True
 
@@ -62,11 +53,7 @@ def tradfri_dim_light(hubip, apiuser, apikey, lightbulbid, value):
     api = '{} -m put -u "{}" -k "{}" -e \'{}\' "{}"'.format(coap, apiuser, apikey,
                                                                          payload, tradfriHub)
 
-    if os.path.exists(coap):
-        result = os.popen(api)
-    else:
-        sys.stderr.write('[-] libcoap: could not find libcoap\n')
-        sys.exit(1)
+    result = subprocess.check_output(api, shell=True)
 
     return result
 
@@ -90,11 +77,8 @@ def tradfri_color_light(hubip, apiuser, apikey, lightbulbid, value):
 
     api = '{} -m put -u "{}" -k "{}" -e \'{}\' "{}"'.format(coap, apiuser, apikey,
                                                                          payload, tradfriHub)
-    if os.path.exists(coap):
-        result = os.popen(api)
-    else:
-        sys.stderr.write('[-] libcoap: could not find libcoap\n')
-        sys.exit(1)
+
+    result = subprocess.check_output(api, shell=True)
 
     return result
 
@@ -110,11 +94,7 @@ def tradfri_power_group(hubip, apiuser, apikey, groupid, value):
     api = '{} -m put -u "{}" -k "{}" -e \'{}\' "{}"' .format(coap, apiuser, apikey,
                                                                           payload, tradfriHub)
 
-    if os.path.exists(coap):
-        result = os.popen(api)
-    else:
-        sys.stderr.write('[-] libcoap: could not find libcoap\n')
-        sys.exit(1)
+    result = subprocess.check_output(api, shell=True)
 
     return result
 
@@ -128,11 +108,7 @@ def tradfri_dim_group(hubip, apiuser, apikey, groupid, value):
     api = '{} -m put -u "{}" -k "{}" -e \'{}\' "{}"'.format(coap, apiuser, apikey,
                                                                          payload, tradfriHub)
 
-    if os.path.exists(coap):
-        result = os.popen(api)
-    else:
-        sys.stderr.write('[-] libcoap: could not find libcoap\n')
-        sys.exit(1)
+    result = subprocess.check_output(api, shell=True)
 
     return result
 
@@ -144,14 +120,10 @@ def tradfri_authenticate(hubip, securitycode, apiuser = "TRADFRI_PY_API_" + str(
     api = '{} -m post -u "Client_identity" -k "{}" -e \'{}\' "{}"'.format(coap, securitycode,
                                                                          payload, tradfriHub)
                                                                          
-    if os.path.exists(coap):
-        result = os.popen(api)
-    else:
-        sys.stderr.write('[-] libcoap: could not find libcoap\n')
-        sys.exit(1)
+    result = subprocess.check_output(api, shell=True)
 
     try:
-        apikey = json.loads(result.read().strip('\n').split('\n')[-1])["9091"]
+        apikey = json.loads(result.decode().strip('\n').split('\n')[-1])["9091"]
     except ValueError:
         raise Exception("Didn't receive valid apikey. This is because the api isn't reachable or the api user already exists.")
 
