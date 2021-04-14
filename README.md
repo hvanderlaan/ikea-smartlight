@@ -8,10 +8,10 @@ at this moment there is no coap libs with dTLS, the ikea smart lights are using 
 
 ```bash
 sudo apt-get install automake libtool
-git clone --depth 1 --recursive -b dtls https://github.com/home-assistant/libcoap.git
+git clone https://github.com/obgm/libcoap.git
 cd libcoap
 ./autogen.sh
-./configure --disable-documentation --disable-shared --without-debug CFLAGS="-D COAP_DEBUG_FD=stderr"
+./configure
 make
 sudo make install
 ```

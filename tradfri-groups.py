@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # file        : tradfri-groups.py
 # purpose     : controlling status from the Ikea tradfri smart groups
@@ -19,17 +19,9 @@
     that supports coap with dTLS. see ../bin/README how to compile libcoap with dTLS support
 """
 
-# pylint convention disablement:
-# C0103 -> invalid-name
-# C0200 -> consider-using-enumerate
-# pylint: disable=C0200, C0103
-
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import os
 import sys
-import ConfigParser
+import configparser
 import argparse
 
 from tradfri import tradfriActions
@@ -50,7 +42,7 @@ def parse_args():
 def main():
     """ main function """
     args = parse_args()
-    conf = ConfigParser.ConfigParser()
+    conf = configparser.ConfigParser()
     script_dir = os.path.dirname(os.path.realpath(__file__))
     conf.read(script_dir + '/tradfri.cfg')
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # file        : tradfri-status.py
 # purpose     : getting status from the Ikea tradfri smart lights
@@ -19,25 +19,17 @@
     that supports coap with dTLS. see ../bin/README how to compile libcoap with dTLS support
 """
 
-# pylint convention disablement:
-# C0103 -> invalid-name
-# C0200 -> consider-using-enumerate
-# pylint: disable=C0200, C0103
-
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import os
 import sys
 import time
-import ConfigParser
+import configparser
 
 from tradfri import tradfriStatus
 from tqdm import tqdm
 
 def main():
     """ main function """
-    conf = ConfigParser.ConfigParser()
+    conf = configparser.ConfigParser()
     script_dir = os.path.dirname(os.path.realpath(__file__))
     conf.read(script_dir + '/tradfri.cfg')
 

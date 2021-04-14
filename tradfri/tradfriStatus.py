@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # file        : tradfri/tradfriStatus.py
 # purpose     : getting status from the Ikea tradfri smart lights
@@ -19,16 +19,10 @@
     that supports coap with dTLS. see ../bin/README how to compile libcoap with dTLS support
 """
 
-# pylint convention disablement:
-# C0103 -> invalid-name
-# pylint: disable=C0103
-
-import sys
-import os
 import json
+import subprocess
 
-global coap
-coap = '/usr/local/bin/coap-client'
+coap = 'coap-client'
 timeout = 5
 
 def tradfri_get_devices(hubip, apiuser, apikey):
@@ -37,13 +31,9 @@ def tradfri_get_devices(hubip, apiuser, apikey):
     api = '{} -m get -u "{}" -k "{}" "{}" -B {} 2> /dev/null' .format(coap, apiuser, apikey,
                                                                       tradfriHub, timeout)
 
-    if os.path.exists(coap):
-        result = os.popen(api)
-    else:
-        sys.stderr.write('[-] libcoap: could not find libcoap.\n')
-        sys.exit(1)
+    result = subprocess.check_output(api, shell=True)
 
-    return json.loads(result.read().strip('\n').split('\n')[-1])
+    return json.loads(result.decode().strip('\n').split('\n')[-1])
 
 def tradfri_get_lightbulb(hubip, apiuser, apikey, deviceid):
     """ function for getting tradfri lightbulb information """
@@ -51,13 +41,9 @@ def tradfri_get_lightbulb(hubip, apiuser, apikey, deviceid):
     api = '{} -m get -u "{}" -k "{}" "{}" -B {} 2> /dev/null' .format(coap, apiuser, apikey,
                                                                       tradfriHub, timeout)
 
-    if os.path.exists(coap):
-        result = os.popen(api)
-    else:
-        sys.stderr.write('[-] libcoap: could not find libcoap.\n')
-        sys.exit(1)
+    result = subprocess.check_output(api, shell=True)
 
-    return json.loads(result.read().strip('\n').split('\n')[-1])
+    return json.loads(result.decode().strip('\n').split('\n')[-1])
 
 def tradfri_get_groups(hubip, apiuser, apikey):
     """ function for getting tradfri groups """
@@ -65,13 +51,9 @@ def tradfri_get_groups(hubip, apiuser, apikey):
     api = '{} -m get -u "{}" -k "{}" "{}" -B {} 2> /dev/null' .format(coap, apiuser, apikey,
                                                                       tradfriHub, timeout)
 
-    if os.path.exists(coap):
-        result = os.popen(api)
-    else:
-        sys.stderr.write('[-] libcoap: could not find libcoap.\n')
-        sys.exit(1)
+    result = subprocess.check_output(api, shell=True)
 
-    return json.loads(result.read().strip('\n').split('\n')[-1])
+    return json.loads(result.decode().strip('\n').split('\n')[-1])
 
 def tradfri_get_group(hubip, apiuser, apikey, groupid):
     """ function for getting tradfri group information """
@@ -79,10 +61,6 @@ def tradfri_get_group(hubip, apiuser, apikey, groupid):
     api = '{} -m get -u "{}" -k "{}" "{}" -B {} 2> /dev/null' .format(coap, apiuser, apikey,
                                                                       tradfriHub, timeout)
 
-    if os.path.exists(coap):
-        result = os.popen(api)
-    else:
-        sys.stderr.write('[-] libcoap: could not find libcoap.\n')
-        sys.exit(1)
+    result = subprocess.check_output(api, shell=True)
 
-    return json.loads(result.read().strip('\n').split('\n')[-1])
+    return json.loads(result.decode().strip('\n').split('\n')[-1])

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # file        : tradfri-authenticate.py
 # purpose     : authenticate api user and generate configuration file
@@ -13,29 +13,20 @@
     that supports coap with dTLS. see ../bin/README how to compile libcoap with dTLS support
 """
 
-# pylint convention disablement:
-# C0103 -> invalid-name
-# C0200 -> consider-using-enumerate
-# pylint: disable=C0200, C0103
-
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import os
 import sys
-import time
-import ConfigParser
+import configparser
 
 from tradfri import tradfriActions
 
 def main():
     """ main function """
-    conf = ConfigParser.ConfigParser()
+    conf = configparser.ConfigParser()
     script_dir = os.path.dirname(os.path.realpath(__file__))
     conf.read(script_dir + '/tradfri.cfg')
 
-    hubip = raw_input("\nhub ip:\t\t")
-    securityCode = raw_input("security code: \t")
+    hubip = input("\nhub ip:\t\t")
+    securityCode = input("security code: \t")
 
     print("\n[ ] acquiring api key ...", end="")
 
